@@ -38,7 +38,6 @@ namespace WpfMessengerTest
 		public MainWindowViewModel()
 		{
 			this.Messenger = new Messenger();
-			this.OnPropertyChanged("Messenger");
 		}
 
 		#endregion // コンストラクタ
