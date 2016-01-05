@@ -23,7 +23,7 @@ namespace WpfMessengerTest
 		#region コンストラクタ
 
 		/// <summary>
-		/// Okaden.Common.Wpf.ViewModel クラスの新しいインスタンスを初期化します。
+		/// WpfMessengerTest.ViewModel クラスの新しいインスタンスを初期化します。
 		/// </summary>
 		/// <remarks>
 		/// このクラスは継承して使用します。直接インスタンスが作成できないようにコンストラクタは protected で定義します。
@@ -196,7 +196,7 @@ namespace WpfMessengerTest
 		#region コンストラクタ
 
 		/// <summary>
-		/// Modelを使用して、 Okaden.Common.Wpf.ViewModel クラスの新しいインスタンスを初期化します。
+		/// Modelを使用して、 WpfMessengerTest.ViewModel クラスの新しいインスタンスを初期化します。
 		/// </summary>
 		/// <param name="model">データを管理するモデルを指定します。</param>
 		/// <remarks>
