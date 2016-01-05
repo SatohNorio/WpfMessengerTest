@@ -1,0 +1,30 @@
+﻿<Window x:Class="WpfMessengerTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:WpfMessengerTest"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="MainWindow"
+        Width="525"
+        Height="350"
+        mc:Ignorable="d">
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
+    <local:MessengerBehavior.Actions>
+        <local:MessageActionCollection SourceObject="{Binding Messenger}">
+            <local:MessageActionCollection.Collection>
+                <local:MessageAction />
+            </local:MessageActionCollection.Collection>
+        </local:MessageActionCollection>
+    </local:MessengerBehavior.Actions>
+    <Grid>
+        <Button x:Name="button"
+                Width="75"
+                Margin="105.928,45.495,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Click="button_Click"
+                Content="Button" />
+    </Grid>
+</Window>
