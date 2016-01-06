@@ -24,40 +24,25 @@ using System.Reflection;
 using System.Configuration;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Windows.Interactivity;
 
 namespace WpfMessengerTest
 {
-	/// <summary>
-	/// メッセージに対応する処理を管理するクラスを定義します。
-	/// </summary>
-	public class MessageAction : IMessageAction
+	public class DisplayMessageBoxAction : TriggerAction<DependencyObject>
 	{
 		// ------------------------------------------------------------------------------------------------------------
-		#region コンストラクタ
+		#region TriggerActionクラス 抽象メソッドの実装
 
-		/// <summary>
-		/// WpfMessengerTest.MessageAction クラスの新しいインスタンスを作成します。
-		/// </summary>
-		public MessageAction()
+		protected override void Invoke(object parameter)
 		{
+			var m = parameter as WarningMessage;
+			if (m != null)
+			{
+				MessageBox.Show(m.Message);
+			}
 		}
 
-		#endregion // コンストラクタ
+		#endregion // TriggerActionクラス 抽象メソッドの実装
 		// ------------------------------------------------------------------------------------------------------------
-
-		public void ShowMessage(WarningMessage message)
-		{
-			MessageBox.Show(message.Message);
-		}
-
-		/// <summary>
-		/// Messenger にアクションを登録します。
-		/// </summary>
-		/// <param name="recipient">メッセージを受け取るオブジェクト を指定します。</param>
-		/// <param name="messenger">メッセージを管理するメッセンジャーオブジェクト を指定します。</param>
-		public void Register(FrameworkElement recipient, Messenger messenger)
-		{
-			messenger.Register<WarningMessage>(recipient, ShowMessage);
-		}
 	}
 }

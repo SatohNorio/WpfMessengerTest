@@ -21,6 +21,11 @@ namespace WpfMessengerTest
 		private List<ActionInfo> FActionList = new List<ActionInfo>();
 
 		/// <summary>
+		/// メッセージに対応する処理のリスト を管理します。
+		/// </summary>
+		private Dictionary<Type, Delegate> FActionDictionary = new Dictionary<Type, Delegate>();
+
+		/// <summary>
 		/// メッセージに対応する処理を登録します。
 		/// </summary>
 		/// <typeparam name="TMessage">メッセージの型を指定します。</typeparam>
@@ -28,12 +33,7 @@ namespace WpfMessengerTest
 		/// <param name="action">メッセージを受け取った時に実行する処理を指定します。</param>
 		public void Register<TMessage>(FrameworkElement recipient, Action<TMessage> action) where TMessage : ViewModelMessage
 		{
-			this.FActionList.Add(new ActionInfo()
-			{
-				Type = typeof(TMessage),
-				sender = recipient.DataContext as INotifyPropertyChanged,
-				action = action
-			});
+			this.FActionDictionary.Add(typeof(TMessage), action);
 		}
 
 		/// <summary>
@@ -42,11 +42,10 @@ namespace WpfMessengerTest
 		/// <typeparam name="TMessage">メッセージの型を指定します。</typeparam>
 		/// <param name="sender">メッセージの送信元オブジェクトを指定します。</param>
 		/// <param name="message">送信するメッセージを指定します。</param>
-		public void Send<TMessage>(INotifyPropertyChanged sender, TMessage message) where TMessage:ViewModelMessage
+		public void Send<TMessage>(INotifyPropertyChanged sender, TMessage message) where TMessage : ViewModelMessage
 		{
-			var q = this.FActionList.Where(o => o.sender == sender && o.Type == message.GetType())
-				.Select(o => o.action as Action<TMessage>);
-			foreach (var action in q)
+			var action = this.FActionDictionary[message.GetType()] as Action<TMessage>;
+			if (action != null)
 			{
 				action(message);
 			}
